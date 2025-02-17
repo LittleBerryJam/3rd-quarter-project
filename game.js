@@ -28,9 +28,19 @@ class point{
         this.choices = choices;
         this.highligtedChoice = -1;
     }
+    getLongestChoice(){
+        let longestLength = 0;
+        for(let choiceNum = 0; choiceNum < this.choices.length; choiceNum++){
+            let length = ctx.measureText(this.choices[choiceNum].text).width;
+            if(length > longestLength){
+                longestLength = length;
+            }
+        }
+        return longestLength;
+    }
     getHighlightedChoice(x, y){
         let choice = Math.floor((y-dialogue.top-padding)/(fontSize+choicePadding));
-        let textLeft = ctx.measureText(this.choices[0].text).width;
+        let textLeft = this.getLongestChoice();
         if(x < gameCanvas.width-padding-textLeft){
             choice = -1;
         }
@@ -70,7 +80,7 @@ let points = {
     explore: new point("*You and your friend enter the temple")
 }
 //choices is [choicePoint, choiceText]
-points.start.choices = [{_point: points.ignore, text: "Ignore"}, {_point: points.explore, text: "Explore"}, {_point: points.explore, text: "choice3"}]
+points.start.choices = [{_point: points.ignore, text: "Ignore"}, {_point: points.explore, text: "Explore"}, {_point: points.explore, text: "choiasfdasfce3"}]
 var currentPoint = points.start;
 
 var dialogue = new dialogueBox(120, "black");
