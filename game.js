@@ -27,6 +27,31 @@ class point{
         this.text = text;
         this.choices = choices;
         this.highligtedChoice = -1;
+        this.textTooLong = false;
+        this.scroll = 0;
+        this.pageWords = [];
+    }
+    getPages(){
+        let words = this.text.split(" ");
+        let currLength = 0;
+        let currWords = "";
+        let lineY = dialogue.top+fontSize+padding;
+        for(let word = 0; word < words.length; word++){
+            if(currLength+ctx.measureText(words[word] + " ").width   > gameCanvas.width-padding-this.getLongestChoice()){
+                currLength = 0;
+                lineY += fontSize + choicePadding;
+            }
+            if(lineY > gameCanvas.height){
+                this.textTooLong = true;
+                this.pageWords.push(currWords);
+                currWords = "";
+                currLength = 0;
+            }
+            currWords += words[word] + " ";
+            currLength += ctx.measureText(words[word] + " ").width;
+            
+            
+        }
     }
     getLongestChoice(){
         let longestLength = 0;
@@ -49,6 +74,9 @@ class point{
         }else{
             this.highligtedChoice = choice;
         }
+        if(this.textTooLong){
+            this.highligtedChoice = -1;
+        }
         
         
     }
@@ -64,19 +92,29 @@ class point{
                 currLength = 0;
                 lineY += fontSize + choicePadding;
             }
+            if(lineY > gameCanvas.height){
+                this.textTooLong = true;
+                break;
+            }
             ctx.fillText(words[word], padding+currLength, lineY);
             currLength += ctx.measureText(words[word] + " ").width;
+            
             
         }
         // ctx.fillText(this.text, padding, dialogue.top+fontSize+padding);
         ctx.textAlign = "right";
-        for(let choiceNum = 0; choiceNum < this.choices.length; choiceNum++){
-            if(choiceNum == this.highligtedChoice){
-                ctx.fillStyle = "#999999";
-            }else{
-                ctx.fillStyle = "white";
+        if(!this.textTooLong){
+            
+            for(let choiceNum = 0; choiceNum < this.choices.length; choiceNum++){
+                if(choiceNum == this.highligtedChoice){
+                    ctx.fillStyle = "#999999";
+                }else{
+                    ctx.fillStyle = "white";
+                }
+                ctx.fillText(this.choices[choiceNum].text, gameCanvas.width-padding, dialogue.top+padding+(fontSize+choicePadding)*(choiceNum+1)-choicePadding);
             }
-            ctx.fillText(this.choices[choiceNum].text, gameCanvas.width-padding, dialogue.top+padding+(fontSize+choicePadding)*(choiceNum+1)-choicePadding);
+        }else{
+            ctx.fillText("next", gameCanvas.width-padding, dialogue.top+padding+fontSize);
         }
         
     }
