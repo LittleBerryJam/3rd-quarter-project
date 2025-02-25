@@ -31,6 +31,8 @@ class point{
         this.scroll = 0;
         this.pageWords = [];
         this.next = -1;
+        this.wordFrame = 0;
+        this.wordslength = 0;
     }
     getPages(){
         ctx.font = fontSize + "px Arial";
@@ -84,6 +86,9 @@ class point{
         this.next = -1;
         let choice = Math.floor((y-dialogue.top-padding)/(fontSize+choicePadding));
         let textLeft = this.getLongestChoice();
+        if(this.scroll < this.pageWords.length - 1){
+            textLeft = ctx.measureText("next").width;
+        }
         if(x < gameCanvas.width-padding-textLeft || x > gameCanvas.width){
             choice = -1;
         }
@@ -106,9 +111,10 @@ class point{
         ctx.fillStyle = "white";
         ctx.textAlign = "left";
         let words = this.pageWords[this.scroll].split(" ");
+        this.wordslength = words.length;
         let currLength = 0;
         let lineY = dialogue.top+fontSize+padding;
-        for(let word = 0; word < words.length; word++){
+        for(let word = 0; word < this.wordFrame; word++){
             if(words[word] == "☺"){
                 currLength = 0;
                 lineY += fontSize + choicePadding;
@@ -126,6 +132,9 @@ class point{
             currLength += ctx.measureText(words[word] + " ").width;
             
             
+        }
+        if(this.wordFrame < words.length){
+            return;
         }
         ctx.textAlign = "right";
         if(this.scroll == this.pageWords.length - 1){
@@ -155,10 +164,22 @@ class point{
 function drawAll(){
     currentPoint.getPages();
     ctx.drawImage(backgroundImg, 0, 0);
+    requestAnimationFrame(animateText);
+}
+function animateText(){
+
     dialogue.draw();
     currentPoint.draw();
+    if(!(currentPoint.wordFrame < currentPoint.wordslength)){
+        return;
+    }
+    currentPoint.wordFrame += 1;
+    if(currentPoint.wordFrame <= currentPoint.wordslength){
+        requestAnimationFrame(animateText);
+    }
     
 }
+
 
 let points = {
     start: new point("Ringg… Ringgg…. ☺ “Hi David. What’s up? Is there any problem with the research paper passed in?” ☺ “No, your research paper is fine.” ☺ “Then what’s the call about?” ☺ “The field team uncovered a new temple in the Amazon Rainforest, and I want you to explore it. This is a once in a lifetime opportunity, in fact I heard some whispers of a treasure hidden in the temple. However the temple is completely undiscovered so there will be risks. Do you accept the offer or not?”"),
@@ -167,21 +188,21 @@ let points = {
     reject: new point("“I’m sorry David but I don’t think the risk is worth it. I think someone else might be better suited for this job” ☺ “Of course, I’ll contact you if there are any other sites you can possibly explore” ☺ “Thank you sir” ☺ Beep/Call Ends"),
     
     bringSean: new point("John quickly calls Sean to inform him of the details and plan the arrangements. Two days later and an hour too long road trip John and Sean found themselves standing in front of the temple. ☺ As they approached the temple they noticed that there were two levers at the base of the wall of the temple. One lever had mud crusted all over it, the other one looked thinner than a typical lever. ☺ “According to the file pulling one of the levers should lead into an entrance inside the temple” - Sean ☺ Which one should they pick?"),
-    notBringSean: new point("In the beninging"),
+    notBringSean: new point("Two days later and an hour too long road trip John found himself standing in front of the temple. ☺ As they approached the temple he noticed that there were two levers at the base of the wall of the temple. One lever had mud crusted all over it, the other one looked thinner than a typical lever. ☺ “According to the file pulling one of the levers should lead into an entrance inside the temple” - John ☺ Which one should they pick?"),
     neutralEnding: new point("You got neutral ending"),
 
-    lever1: new point("In the beninging"),
-    lever2: new point(""),
+    lever1: new point("John decided to pull the first lever. A rumbling sound echoed through the jungle, suddenly the stone that John was previously standing on slid open, which dropped them onto a pile of mud. Then they started sinking, and more quicksand was flowing in. John saw a ledge he could climb up but it did not look stable, the other choice is to find a way to stop the quicksand?"),
+    lever2: new point("There was a creaking sound then a piece of slab slid open revealing an entrance. John and Sean ventured into the temple. The passageway appeared to be never ending, and getting narrower and narrower. When the way was only as wide as John and Sean’s shoulders the path diverged into two."),
     
-    higherGround: new point(""),
-    stopSand: new point(""),
-    bigSpace: new point(""),
-    continueGoing: new point(""),
+    higherGround: new point("While John tries to reach higher ground he notices a crack in the wall that is letting all the sand in. He finds a stone and uses it to stop the quicksand. For a minute or so the quicksand seemed to be lessening, but then more quicksand started flooding in, John tried to get out but he failed and his body was lost forever in the quicksand. ☺ What should John do?"),
+    stopSand: new point("John hurriedly looked around for a way to stop the sand. However the sand was too fast and soon he was under. "),
+    bigSpace: new point("John picked up a random bone on the floor and tried to loosen a few stones to get a wider space. However he accidentally managed to get the roof collapse on him."),
+    continueGoing: new point("So he kept on walking and walking and walking and walking and walking. After a while the tunnel widened and he arrived in front of two entrances. ☺ Where should they go next?"),
 
     neutralEnding2: new point(""),
     die: new point(""),
-    entrance1: new point(""),   
-    entrance2: new point("")
+    entrance1: new point("Entrance 1 turns out to be a trap and John ends up falling into the pit. Luckily the pit turned out to be not that deep so he managed to survive. At the bottom of the pit there are two holes leading to different ways. ☺ Which way should John go?"),
+    entrance2: new point("John enters through the entrance but accidentally triggers the trap door and falls to his death.")
 
 }
 
@@ -191,7 +212,7 @@ points.start.choices = [{_point: points.accept, text: "Accept the offer"}, {_poi
 points.accept.choices = [{_point: points.bringSean, text: "Bring Sean"}, {_point: points.notBringSean, text: "Don't bring Sean"}];
 points.reject.choices = [{_point: points.neutralEnding, text: "Next"}];
 points.notBringSean.choices = [{_point: points.lever1, text: "lever 1"}, {_point: points.lever2, text: "lever 2"}];
-points.lever1.choices = [{_point: points.higherGround, text: "higher ground"}, {_point: points.stopSand, text: "stopsand"}];
+points.lever1.choices = [{_point: points.higherGround, text: "Go to higher ground"}, {_point: points.stopSand, text: "Find a way to stop the quicksand"}];
 points.higherGround.choices = [{_point: points.neutralEnding2, text: "Next"}];
 points.higherGround.choices = [{_point: points.die, text: "Next"}];
 points.lever2.choices = [{_point: points.bigSpace, text: "big space"}, {_point: points.continueGoing, text: "go"}];
@@ -221,10 +242,12 @@ gameCanvas.addEventListener("click", function(e){
     currentPoint.getHighlightedChoice(mX, mY);
     if(currentPoint.scroll < currentPoint.pageWords.length - 1){
         if(currentPoint.next == 1){
+            currentPoint.wordFrame = 0;
             currentPoint.scroll += 1;
         }
     }else{
         if(currentPoint.highligtedChoice > -1){
+            currentPoint.wordFrame = 0;
             currentPoint = currentPoint.choices[currentPoint.highligtedChoice]._point;
         }
         
