@@ -6,7 +6,7 @@ let ctx = gameCanvas.getContext("2d");
 let backgroundImg = document.getElementById("background");
 
 let clickSound = new Audio("resources/sounds/click.wav");
-
+let speakSound = new Audio("resources/sounds/dialogue.wav")
 class dialogueBox{
     constructor(height, color){
         this.height = height;
@@ -158,13 +158,36 @@ class point{
         
     }
 }
-
+class Button{
+    constructor(x, y, width, height){
+        this.x = x;
+        this.y = y;
+        this.width = width;
+        this.height = height;
+    }
+    draw(){
+        ctx.fillStyle = "black";
+        ctx.fillRect(this.x, this.y, this.width, this.height);
+    }
+    touchingMouse(x, y){
+        if(x >= this.x && x <= this.x + this.width && y >= this.y && y <= this.y + this.height){
+            return true;
+        }
+        return false;
+    }
+}
 
 
 function drawAll(){
-    currentPoint.getPages();
-    ctx.drawImage(backgroundImg, 0, 0);
-    requestAnimationFrame(animateText);
+    if(gameState == 0){
+        startScreen();
+    }
+    else if(gameState == 1){
+        currentPoint.getPages();
+        ctx.drawImage(backgroundImg, 0, 0);
+        requestAnimationFrame(animateText);
+    }
+    
 }
 function animateText(){
 
@@ -173,13 +196,18 @@ function animateText(){
     if(!(currentPoint.wordFrame < currentPoint.wordslength)){
         return;
     }
+    speakSound.play();
     currentPoint.wordFrame += 1;
     if(currentPoint.wordFrame <= currentPoint.wordslength){
         requestAnimationFrame(animateText);
     }
     
 }
-
+var startButton = new Button(gameCanvas.width/2-50, gameCanvas.height/2-25, 100, 50)
+function startScreen(){
+    ctx.drawImage(backgroundImg, 0, 0);
+    startButton.draw();
+}
 
 let points = {
     start: new point("Ringg… Ringgg…. ☺ “Hi David. What’s up? Is there any problem with the research paper passed in?” ☺ “No, your research paper is fine.” ☺ “Then what’s the call about?” ☺ “The field team uncovered a new temple in the Amazon Rainforest, and I want you to explore it. This is a once in a lifetime opportunity, in fact I heard some whispers of a treasure hidden in the temple. However the temple is completely undiscovered so there will be risks. Do you accept the offer or not?”"),
@@ -221,6 +249,7 @@ points.continueGoing.choices = [{_point: points.entrance1, text: "entrance 1"}, 
 
 var currentPoint = points.start;
 var dialogue = new dialogueBox(120, "black");
+var gameState = 0;
 
 drawAll();
 
@@ -230,28 +259,42 @@ addEventListener("mousemove", function(e){
     document.body.style.cursor = "default";
     let mX = e.clientX - rect.x;
     let mY = e.clientY - rect.y;
-    currentPoint.getHighlightedChoice(mX, mY)
-    if(currentPoint.highligtedChoice > -1 || currentPoint.next == 1){
-        document.body.style.cursor = "pointer";
+    if(gameState == 0){
+        if(startButton.touchingMouse(mX, mY)){
+            document.body.style.cursor = "pointer";
+        }
     }
-    drawAll();
+    else if(gameState == 1){
+        currentPoint.getHighlightedChoice(mX, mY)
+        if(currentPoint.highligtedChoice > -1 || currentPoint.next == 1){
+            document.body.style.cursor = "pointer";
+        }
+        drawAll();
+    }
 });
 gameCanvas.addEventListener("click", function(e){
     let mX = e.clientX - rect.x;
     let mY = e.clientY - rect.y;
-    currentPoint.getHighlightedChoice(mX, mY);
-    if(currentPoint.scroll < currentPoint.pageWords.length - 1){
-        if(currentPoint.next == 1){
-            currentPoint.wordFrame = 0;
-            currentPoint.scroll += 1;
+    if(gameState == 0){
+        if(startButton.touchingMouse(mX, mY)){
+            gameState = 1;
         }
-    }else{
-        if(currentPoint.highligtedChoice > -1){
-            currentPoint.wordFrame = 0;
-            currentPoint = currentPoint.choices[currentPoint.highligtedChoice]._point;
+    }
+    else if(gameState == 1){
+        currentPoint.getHighlightedChoice(mX, mY);
+        if(currentPoint.scroll < currentPoint.pageWords.length - 1){
+            if(currentPoint.next == 1){
+                currentPoint.wordFrame = 0;
+                currentPoint.scroll += 1;
+            }
+        }else{
+            if(currentPoint.highligtedChoice > -1){
+                currentPoint.wordFrame = 0;
+                currentPoint = currentPoint.choices[currentPoint.highligtedChoice]._point;
+            }
+            
         }
         
+        drawAll()
     }
-    
-    drawAll()
 });
