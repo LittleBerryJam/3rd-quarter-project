@@ -228,9 +228,40 @@ let points = {
     continueGoing: new point("So he kept on walking and walking and walking and walking and walking. After a while the tunnel widened and he arrived in front of two entrances. ☺ Where should they go next?"),
 
     neutralEnding2: new point(""),
-    die: new point(""),
+    die1: new point(""),
+    die2: new point(""),
     entrance1: new point("Entrance 1 turns out to be a trap and John ends up falling into the pit. Luckily the pit turned out to be not that deep so he managed to survive. At the bottom of the pit there are two holes leading to different ways. ☺ Which way should John go?"),
-    entrance2: new point("John enters through the entrance but accidentally triggers the trap door and falls to his death.")
+    entrance2: new point("John enters through the entrance but accidentally triggers the trap door and falls to his death."),
+
+    lever1S: new point("John and Sean decided to pull the first lever. A rumbling sound echoed through the jungle, suddenly the stone that John and Sean were previously standing on slid open, which dropped them onto a pile of mud. Then they started sinking, and more quicksand was flowing in. ☺ “Quick! We need to get out of here, it's not mud its quicksand” - Sean ☺ “Even if we find higher ground we might not find a way out, we need to block the quicksand from getting in.” - John ☺ What should John and Sean do?"),
+    lever2S: new point("There was a creaking sound then a piece of slab slid open revealing an entrance. John and Sean ventured into the temple. The passageway appeared to be never ending, and getting narrower and narrower. When the way was only as wide as John and Sean’s shoulders the path diverged into two. ☺ Which path should they take?"),
+
+    higherGroundS: new point("Sean tried to grab on the ledge and climb out of the sand. Despite him managing to grab the ledge, the ledge was too unstable and the wall collapsed on John and Sean."),
+    stopSandS: new point("John sees that the quicksand was coming through a slot in the wall. Sean found a rock big enough to jam the flow and blocked the hole. Soon the level of quicksand stopped flowing and after a few tries John and Sean got out of the quicksand and through the opening of the wall(which was previously hidden by the quicksand). ☺ Past the openings they saw two entrances leading to different paths. ☺ Which way should they go?"),
+    path1: new point(""),
+    path2: new point(""),
+
+    badEnding: new point(""),
+    entrance1S: new point(""),
+    entrance2S: new point(""),
+    entrance1P: new point(""),
+    entrance2P: new point(""),
+    neutralEnding3: new point(""),
+
+    dieS: new point(""),
+    gotopath1: new point(""),
+    cricket: new point(""),
+    mouse: new point(""),
+    attempt: new point(""),
+    leave: new point(""),
+    gotopath12: new point(""),
+    dieS2: new point(""),
+    puzzle: new point(""),
+    pickLock: new point(""),
+    neutralEnding4: new point(""),
+
+    dieS3: new point(""),
+    goodEnding: new point(""),
 
 }
 
@@ -242,15 +273,32 @@ points.reject.choices = [{_point: points.neutralEnding, text: "Next"}];
 points.notBringSean.choices = [{_point: points.lever1, text: "lever 1"}, {_point: points.lever2, text: "lever 2"}];
 points.lever1.choices = [{_point: points.higherGround, text: "Go to higher ground"}, {_point: points.stopSand, text: "Find a way to stop the quicksand"}];
 points.higherGround.choices = [{_point: points.neutralEnding2, text: "Next"}];
-points.higherGround.choices = [{_point: points.die, text: "Next"}];
+points.stopSand.choices = [{_point: points.die, text: "Next"}];
 points.lever2.choices = [{_point: points.bigSpace, text: "big space"}, {_point: points.continueGoing, text: "go"}];
 points.bigSpace.choices = [{_point: points.die, text: "Next"}];
 points.continueGoing.choices = [{_point: points.entrance1, text: "entrance 1"}, {_point: points.entrance2, text: "entrance 2"}];
 
+points.bringSean.choices = [{_point: points.lever1S, text: "Lever 1"}, {_point: points.lever2S, text: "Lever 2"}];
+
+points.lever1S.choices =  [{_point: points.higherGroundS, text: "Go to higher ground"}, {_point: points.stopSandS, text: "Find a way to stop the quicksand"}];
+points.higherGroundS.choices = [{_point: points.badEnding, text: "Next"}];
+points.stopSandS.choices = [{_point: points.entrance1S, text: "Entrance 1"}, {_point: points.entrance2S, text: "Entrance 2"}];
+points.entrance1S.choices = [{_point: points.dieS, text: "Next"}];
+points.entrance2S.choices = [{_point: points.gotopath1, text: "Next"}];
+
+points.lever2S.choices = [{_point: points.path1, text: "path1"}, {_point: points.path2, text: "path2"}];
+points.path2.choices = [{_point: points.neutralEnding3, text: "next"}];
+points.path1.choices = [{_point: points.entrance1P, text: "entrance 1"}, {_point: points.entrance2P, text: "entrance 2"}];
+points.entrance1P.choices = [{_point: points.cricket, text: "entrance 1"}, {_point: points.mouse, text: "entrance 2"}];
+points.cricket.choices = [{_point: points.gotopath1, text: "next"}];
+points.mouse.choices = [{_point: points.dieS2, text: "next"}];
+points.entrance2P.choices = [{_point: points.attempt, text: "attempt"}, {_point: points.leave, text: "leave"}];
+points.leave.choices = [{_point: points.neutralEnding4, text: "next"}];
+points.puzzle.choices = [{_point: points.dieS3, text: "next"}];
+points.pickLock.choices = [{_point: points.goodEnding, text: "next"}];
 var currentPoint = points.start;
 var dialogue = new dialogueBox(120, "black");
 var gameState = 0;
-
 drawAll();
 
 
@@ -293,6 +341,7 @@ gameCanvas.addEventListener("click", function(e){
                 currentPoint.wordFrame = 0;
                 currentPoint = currentPoint.choices[currentPoint.highligtedChoice]._point;
                 clickSound.play();
+                
             }
             
         }
