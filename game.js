@@ -286,11 +286,13 @@ gameCanvas.addEventListener("click", function(e){
             if(currentPoint.next == 1){
                 currentPoint.wordFrame = 0;
                 currentPoint.scroll += 1;
+                clickSound.play();
             }
         }else{
             if(currentPoint.highligtedChoice > -1){
                 currentPoint.wordFrame = 0;
                 currentPoint = currentPoint.choices[currentPoint.highligtedChoice]._point;
+                clickSound.play();
             }
             
         }
