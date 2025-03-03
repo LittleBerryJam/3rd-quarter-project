@@ -301,9 +301,7 @@ var dialogue = new dialogueBox(120, "black");
 var gameState = 0;
 drawAll();
 
-
-rect = gameCanvas.getBoundingClientRect();
-addEventListener("mousemove", function(e){
+function update(e){
     document.body.style.cursor = "default";
     let mX = e.clientX - rect.x;
     let mY = e.clientY - rect.y;
@@ -319,13 +317,19 @@ addEventListener("mousemove", function(e){
         }
         drawAll();
     }
-});
+}
+
+rect = gameCanvas.getBoundingClientRect();
+addEventListener("mousemove", update);
+addEventListener("mouseup", update);
 gameCanvas.addEventListener("click", function(e){
     let mX = e.clientX - rect.x;
     let mY = e.clientY - rect.y;
     if(gameState == 0){
         if(startButton.touchingMouse(mX, mY)){
             gameState = 1;
+            clickSound.play();
+            drawAll();
         }
     }
     else if(gameState == 1){
