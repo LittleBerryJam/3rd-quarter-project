@@ -33,6 +33,9 @@ class point{
         this.next = -1;
         this.wordFrame = 0;
         this.wordslength = 0;
+        this.img = "";
+        this.imgs = [];
+        
     }
     getPages(){
         ctx.font = fontSize + "px Arial";
@@ -80,6 +83,9 @@ class point{
                 longestLength = length;
             }
         }
+        if(longestLength == 0){
+            longestLength = ctx.measureText("next").width;
+        }
         return longestLength;
     }
     getHighlightedChoice(x, y){
@@ -92,7 +98,7 @@ class point{
         if(x < gameCanvas.width-padding-textLeft || x > gameCanvas.width){
             choice = -1;
         }
-        if(choice > this.choices.length-1){
+        if(choice > this.choices.length-1 && this.choices.length > 0){
             this.highligtedChoice = -1;
         }else{
             this.highligtedChoice = choice;
@@ -107,6 +113,13 @@ class point{
         
     }
     draw(){
+        let tempImg = document.createElement("img");
+        if(this.img == ""){
+            tempImg.src = this.imgs[this.scroll];
+        }else{
+            tempImg.src = this.img;
+        }
+        ctx.drawImage(tempImg, 0, 0);
         ctx.font = fontSize + "px Arial";
         ctx.fillStyle = "white";
         ctx.textAlign = "left";
@@ -189,7 +202,6 @@ function drawAll(){
     }
     else if(gameState == 1){
         currentPoint.getPages();
-        ctx.drawImage(backgroundImg, 0, 0);
         requestAnimationFrame(animateText);
     }
     
@@ -219,22 +231,22 @@ let points = {
     reject: new point("“I’m sorry David but I don’t think the risk is worth it. I think someone else might be better suited for this job” ☺ “Of course, I’ll contact you if there are any other sites you can possibly explore” ☺ “Thank you sir” ☺ Beep/Call Ends"),
     accept: new point("“Good, I’ll send a file with all the information we have right now. The field team will clear out two days from now, so you must be there by then. I expect a full report on your findings by next Monday. Remember that this project is highly classified, do not share this information with just anyone” ☺ Beep(or whatever sound your phone makes when a call ends)/Call Ends ☺ Preparing for his trip, John had an idea to invite his assistant, Sean, to help him with this assignment; after all, two heads were better than one. But David did say to keep the information classified, so maybe inviting Sean wouldn't be such a good idea."),
 
-    notBringSean: new point("Two days later and an hour too long road trip John found himself standing in front of the temple. ☺ As they approached the temple he noticed that there were two levers at the base of the wall of the temple. One lever had mud crusted all over it, the other one looked thinner than a typical lever. ☺ “According to the file pulling one of the levers should lead into an entrance inside the temple” - John ☺ Which one should they pick?"),
+    notBringSean: new point("Two days later and an hour too long road trip John found himself standing in front of the temple. ☺  ☺ As he approached the temple he noticed that there were two levers at the base of the wall of the temple. One lever had mud crusted all over it, the other one looked thinner than a typical lever. ☺ “According to the file pulling one of the levers should lead into an entrance inside the temple” - John ☺ Which one should they pick?"),
     
-    lever1: new point("John decided to pull the first lever. A rumbling sound echoed through the jungle, suddenly the stone that John was previously standing on slid open, which dropped them onto a pile of mud. Then they started sinking, and more quicksand was flowing in. John saw a ledge he could climb up but it did not look stable, the other choice is to find a way to stop the quicksand? ☺ What should John do?"),
-    lever2: new point("There was a creaking sound then a piece of slab slid open revealing an entrance. John and Sean ventured into the temple. The passageway appeared to be never ending, and getting narrower and narrower. When the way was only as wide as John and Sean’s shoulders the path diverged into two."),
+    lever1: new point("John decided to pull the first lever. ☺ ☺ ☺ A rumbling sound echoed through the jungle, suddenly the stone that John was previously standing on slid open, which dropped him onto a pile of mud. Then they started sinking, and more quicksand was flowing in. John saw a ledge he could climb up but it did not look stable, the other choice is to find a way to stop the quicksand? ☺ What should John do?"),
+    lever2: new point("There was a creaking sound then a piece of slab slid open revealing an entrance. John ventured into the temple. The passageway appeared to be never ending, and getting narrower and narrower. When the way was only as wide as John's shoulders the path diverged into two."),
 
-    higherGround: new point("While John tries to reach higher ground he notices a crack in the wall that is letting all the sand in. He finds a stone and uses it to stop the quicksand. For a minute or so the quicksand seemed to be lessening, but then more quicksand started flooding in, John tried to get out but he failed and his body was lost forever in the quicksand. "),
-    stopSand: new point("John hurriedly looked around for a way to stop the sand. However the sand was too fast and soon he was under. "),
-    biggerPath: new point("John picked up a random bone on the floor and tried to loosen a few stones to get a wider space. However he accidentally managed to get the roof collapse on him."),
-    continue: new point("So he kept on walking and walking and walking and walking and walking. After a while the tunnel widened and he arrived in front of two entrances.  ☺ Where should they go next?"),
+    higherGround: new point("While John tries to reach higher ground he notices a crack in the wall that is letting all the sand in. He finds a stone and uses it to stop the quicksand. For a minute or so the quicksand seemed to be lessening, but then more quicksand started flooding in  ☺  ☺  ☺  John tried to get out but he failed and his body was lost forever in the quicksand. "),
+    stopSand: new point("John hurriedly looked around for a way to stop the sand.  ☺  ☺  ☺ However the sand was too fast and soon he was under. "),
+    biggerPath: new point("John picked up a random bone on the floor and tried to loosen a few stones to get a wider space.  ☺  ☺ However he accidentally managed to get the roof collapse on him."),
+    continue: new point("So he kept on walking and walking and walking and walking and walking. After a while the tunnel widened and he arrived in front of two entrances.  ☺ Where should he go next?"),
 
     entrance1: new point("Entrance 1 turns out to be a trap and John ends up falling into the pit. Luckily the pit turned out to be not that deep so he managed to survive. At the bottom of the pit there are two holes leading to different ways. ☺ Which way should John go?"),
     entrance2: new point("John enters through the entrance but accidentally triggers the trap door and falls to his death."),
 
-    hole1: new point("John crawls into the first hole and sees skeletons and carcasses of dead people and animals in the hole. He turned around to try and get out but somehow the hole he went through was gone. John tried to find other ways to get out but eventually failed, after a while he joined the pile of bones in the corner"),
+    hole1: new point("John crawls into the first hole and sees skeletons and carcasses of dead people and animals in the hole.  ☺  ☺ He turned around to try and get out but somehow the hole he went through was gone. John tried to find other ways to get out but eventually failed, after a while he joined the pile of bones in the corner"),
     hole2: new point("After crawling through mud and door he ended up in a room with an unlocked door. John entered the room and found stacks of all sorts of treasure. He stuffed all he could find in his bag and retraced his steps until he finally made his way out with the treasure."),
-    findEscape: new point("John turned around to try to find another way out but he slipped and fell into Hole 1. The impact was too much for John’s body to handle so he died."),
+    findEscape: new point("John turned around to try to find another way out but he slipped and fell into Hole 1. ☺  ☺   The impact was too much for John’s body to handle so he died."),
 
     BringSean: new point("John quickly calls Sean to inform him of the details and plan the arrangements. Two days later and an hour too long road trip John and Sean found themselves standing in front of the temple. ☺ As they approached the temple they noticed that there were two levers at the base of the wall of the temple. One lever had mud crusted all over it, the other one looked thinner than a typical lever. ☺ “According to the file pulling one of the levers should lead into an entrance inside the temple” - Sean ☺ Which one should they pick?"),
 
@@ -265,13 +277,29 @@ let points = {
 
 }
 
+points.start.img = "resources/images/start.png";
+points.accept.img = "resources/images/accept.png";
+points.reject.img = "resources/images/reject.png";
+points.BringSean.img = "resources/images/bring sean 1.png";
+points.notBringSean.imgs = ["resources/images/dont bring sean 1.png", "resources/images/dont bring sean 2.png", "resources/images/dont bring sean 3.png", "resources/images/dont bring sean 3.png"];
+points.lever1.imgs = ["resources/images/lever 1 1.png", "resources/images/lever 1 2.png", "resources/images/lever 1 3.png", "resources/images/lever 1 5.png", "resources/images/lever 1 5.png"];
+points.stopSand.imgs = ["resources/images/stop sand 1.png", "resources/images/stop sand 2.png"];
+points.higherGround.imgs = ["resources/images/find higher ground 1.png", "resources/images/find higher ground 2.png", "resources/images/find higher ground 3.png"];
+points.lever2.imgs = ["resources/images/lever 2 1.png", "resources/images/lever 2 2.png", "resources/images/lever 2 3.png", "resources/images/lever 2 4.png"];
+points.biggerPath.imgs = ["resources/images/bigger space 1.png", "resources/images/bigger space 2.png"];
+points.continue.img = "resources/images/continue going.png";
+points.entrance2.img = "resources/images/entrance 2.png";
+points.entrance1.img = "resources/images/entrance 1.png";
+points.hole1.imgs = ["resources/images/hole 1 1.png", "resources/images/hole 1 2.png"];
+points.findEscape.imgs = ["resources/images/ignore holes.png", "resources/images/ignore holes 2.png"];
+
 
 //choices is [choicePoint, choiceText]
 points.start.choices = [{_point: points.accept, text: "Accept the offer"}, {_point: points.reject, text: "Reject the offer"}];
 points.accept.choices = [{_point: points.BringSean, text: "Bring Sean"}, {_point: points.notBringSean, text: "Don't bring Sean"}];
 points.notBringSean.choices = [{_point: points.lever1, text: "Lever 1"}, {_point: points.lever2, text: "Lever 2"}];
 points.lever1.choices = [{_point: points.higherGround, text: "Go to higher ground"}, {_point: points.stopSand, text: "Find a way to stop the quicksand"}];
-points.lever2.choices = [{_point: points.biggerPath, text: "Use a stone to create a bigger space"}, {_point: points.continue, text: "Continue going"}];
+points.lever2.choices = [{_point: points.biggerPath, text: "Use a bone to create a bigger space"}, {_point: points.continue, text: "Continue going"}];
 points.continue.choices = [{_point: points.entrance1, text: "Entrance 1"}, {_point: points.entrance2, text: "Entrance 2"}];
 points.entrance1.choices = [{_point: points.hole1, text: "Hole 1"}, {_point: points.hole2, text: "Hole 2"}, {_point: points.findEscape, text: "Ignore and find more ways to escape"}];
 
@@ -289,7 +317,7 @@ points.entrance2b = [{_point: points.attempt, text: "Go and attempt"}, {_point: 
 points.attempt.choices = [{_point: points.puzzle, text: "Puzzle"}, {_point: points.pickLock, text: "Pick the lock"}];
 points.puzzle.choices = [{_point: points.pickUp, text: "Pick up"}, {_point: points.ignore, text: "Ignore"}];
 
-var currentPoint = points.start;
+var currentPoint = points.entrance1;
 var dialogue = new dialogueBox(120, "black");
 var gameState = 0;
 drawAll();
@@ -323,7 +351,7 @@ gameCanvas.addEventListener("click", function(e){
             gameState = 1;
             clickSound.play();
             drawAll();
-            backgroundSound.play();
+            
         }
     }
     else if(gameState == 1){
@@ -344,6 +372,6 @@ gameCanvas.addEventListener("click", function(e){
             
         }
         
-        drawAll()
+        drawAll();
     }
 });
