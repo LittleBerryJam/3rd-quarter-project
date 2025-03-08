@@ -244,17 +244,17 @@ let points = {
     entrance1: new point("Entrance 1 turns out to be a trap and John ends up falling into the pit. Luckily the pit turned out to be not that deep so he managed to survive. At the bottom of the pit there are two holes leading to different ways. ☺ Which way should John go?"),
     entrance2: new point("John enters through the entrance but accidentally triggers the trap door and falls to his death."),
 
-    hole1: new point("John crawls into the first hole and sees skeletons and carcasses of dead people and animals in the hole.  ☺  ☺ He turned around to try and get out but somehow the hole he went through was gone. John tried to find other ways to get out but eventually failed, after a while he joined the pile of bones in the corner"),
-    hole2: new point("After crawling through mud and door he ended up in a room with an unlocked door. John entered the room and found stacks of all sorts of treasure. He stuffed all he could find in his bag and retraced his steps until he finally made his way out with the treasure."),
-    findEscape: new point("John turned around to try to find another way out but he slipped and fell into Hole 1. ☺  ☺   The impact was too much for John’s body to handle so he died."),
+    hole1: new point("John crawls into the first hole and sees skeletons and carcasses of dead people and animals in the hole. ☺ ☺ He turned around to try and get out but somehow the hole he went through was gone. John tried to find other ways to get out but eventually failed, after a while he joined the pile of bones in the corner"),
+    hole2: new point("After crawling through mud and door he ended up in a room with an unlocked door. ☺ ☺ John entered the room and found stacks of all sorts of treasure. He stuffed all he could find in his bag and retraced his steps until he finally made his way out with the treasure."),
+    findEscape: new point("John turned around to try to find another way out but he slipped and fell into Hole 1. ☺ ☺ The impact was too much for John’s body to handle so he died."),
 
-    BringSean: new point("John quickly calls Sean to inform him of the details and plan the arrangements. Two days later and an hour too long road trip John and Sean found themselves standing in front of the temple. ☺ As they approached the temple they noticed that there were two levers at the base of the wall of the temple. One lever had mud crusted all over it, the other one looked thinner than a typical lever. ☺ “According to the file pulling one of the levers should lead into an entrance inside the temple” - Sean ☺ Which one should they pick?"),
+    BringSean: new point("John quickly calls Sean to inform him of the details and plan the arrangements. ☺ ☺  Two days later and an hour too long road trip John and Sean found themselves standing in front of the temple. ☺ As they approached the temple they noticed that there were two levers at the base of the wall of the temple. One lever had mud crusted all over it, the other one looked thinner than a typical lever. ☺ “According to the file pulling one of the levers should lead into an entrance inside the temple” - Sean ☺ Which one should they pick?"),
 
     lever1b: new point("John and Sean decided to pull the first lever. A rumbling sound echoed through the jungle, suddenly the stone that John and Sean were previously standing on slid open, which dropped them onto a pile of mud. Then they started sinking, and more quicksand was flowing in. ☺ “Quick! We need to get out of here, it's not mud its quicksand” - Sean ☺ “Even if we find higher ground we might not find a way out, we need to block the quicksand from getting in.” - John ☺ What should John and Sean do?"),
     lever2b: new point("There was a creaking sound then a piece of slab slid open revealing an entrance. John and Sean ventured into the temple. The passageway appeared to be never ending, and getting narrower and narrower. When the way was only as wide as John and Sean’s shoulders the path diverged into two. ☺ Which path should they take?"),
 
-    higherGroundb: new point("Sean tried to grab on the ledge and climb out of the sand. Despite him managing to grab the ledge, the ledge was too unstable and the wall collapsed on John and Sean."),
-    stopSandb: new point("John sees that the quicksand was coming through a slot in the wall. Sean found a rock big enough to jam the flow and blocked the hole. Soon the level of quicksand stopped flowing and after a few tries John and Sean got out of the quicksand and through the opening of the wall(which was previously hidden by the quicksand). ☺ Past the openings they saw two entrances leading to different paths. ☺ Which way should they go?"),
+    higherGroundb: new point("Sean tried to grab on the ledge and climb out of the sand. ☺  ☺  ☺  Despite him managing to grab the ledge, the ledge was too unstable and the wall collapsed on John and Sean."),
+    stopSandb: new point("John sees that the quicksand was coming through a slot in the wall.  ☺  ☺  Sean found a rock big enough to jam the flow and blocked the hole. ☺  ☺ Soon the level of quicksand stopped flowing and after a few tries John and Sean got out of the quicksand and through the opening of the wall(which was previously hidden by the quicksand). ☺ Past the openings they saw two entrances leading to different paths. ☺ Which way should they go?"),
 
     path1: new point("So they kept on walking and walking and walking. After a while the tunnel widened and they arrived in front of two entrances.  ☺ Where should they go next?"),
     path2: new point("Following the second path they kept on walking. Shortly they could see a light at the end of the tunnel. They were able to escape and make it out alive in the temple!"),
@@ -269,10 +269,10 @@ let points = {
     leave: new point("Sean searched around for a way out and found a hidden tunnel covered by some plants. John and Sean followed the tunnel out of the tunnel safely."),
     
     puzzle: new point("John is now trying to solve the puzzle but it said that it needs one person to die. John and Sean thought that this seemed wrong, but still tried to find a solution. While John tried to figure out the problem he found two knives lying on the ground. ☺ Should they use the knives to their advantage or leave them?"),
-    pickLock: new point("John attempted to pick the lock using the knives and after a few tries it actually worked. The door slid open leading to piles of gold and other treasure. Taking note on how to reach the treasure they eventually find their way out and lived happily ever after."),
+    pickLock: new point("John attempted to pick the lock using the knives and after a few tries it actually worked.  ☺  ☺ The door slid open leading to piles of gold and other treasure. Taking note on how to reach the treasure they eventually find their way out and lived happily ever after."),
 
-    pickUp: new point("John picks it up, but Sean betrays you and stabs you dead, but ultimately kills himself too because of guilt."),
-    ignore: new point("John tried to ignore knives and find a way out. Alas they couldn’t find one and they decided that a quick death would be better than dying of starvation so they chose to put the knife into good use."),
+    pickUp: new point("John picks it up, but Sean betrays you and stabs you dead ☺  ☺  ☺ but ultimately kills himself too because of guilt."),
+    ignore: new point("John tried to ignore knives and find a way out. ☺  ☺  ☺ Alas they couldn’t find one and they decided that a quick death would be better than dying of starvation so they chose to put the knife into good use."),
 
 
 }
@@ -280,7 +280,7 @@ let points = {
 points.start.img = "resources/images/start.png";
 points.accept.img = "resources/images/accept.png";
 points.reject.img = "resources/images/reject.png";
-points.BringSean.img = "resources/images/bring sean 1.png";
+points.BringSean.imgs = ["resources/images/bring sean 1.png", "resources/images/bring sean 2.png", "resources/images/bring sean 3.png", "resources/images/bring sean 3.png"];
 points.notBringSean.imgs = ["resources/images/dont bring sean 1.png", "resources/images/dont bring sean 2.png", "resources/images/dont bring sean 3.png", "resources/images/dont bring sean 3.png"];
 points.lever1.imgs = ["resources/images/lever 1 1.png", "resources/images/lever 1 2.png", "resources/images/lever 1 3.png", "resources/images/lever 1 5.png", "resources/images/lever 1 5.png"];
 points.stopSand.imgs = ["resources/images/stop sand 1.png", "resources/images/stop sand 2.png"];
@@ -292,6 +292,23 @@ points.entrance2.img = "resources/images/entrance 2.png";
 points.entrance1.img = "resources/images/entrance 1.png";
 points.hole1.imgs = ["resources/images/hole 1 1.png", "resources/images/hole 1 2.png"];
 points.findEscape.imgs = ["resources/images/ignore holes.png", "resources/images/ignore holes 2.png"];
+points.hole2.imgs = ["resources/images/hole 2 1.png", "resources/images/hole 2 2.png"];
+points.lever1b.imgs = ["resources/images/lever 1b 1.png", "resources/images/lever 1b 2.png", "resources/images/lever 1b 3.png", "resources/images/lever 1b 4.png", "resources/images/lever 1b 4.png"]
+points.higherGroundb.imgs = ["resources/images/higher groundb.png", "resources/images/higher groundb 2.png"]
+points.stopSandb.imgs = ["resources/images/stop sand b1.png", "resources/images/stop sand b2.png", "resources/images/stop sand b3.png", "resources/images/two entrances.png"];
+points.lever2b.imgs = ["resources/images/lever 2b 1.png", "resources/images/lever 2b 2.png"];
+points.path2.img = "resources/images/path 2.png";
+points.path1.img = "resources/images/two entrances.png"
+points.entrance1b.img = "resources/images/entrance 1b.png";
+points.mouse.img = "resources/images/mouse.png";
+points.cricket.img = "resources/images/cricket.png";
+points.entrance2b.img = "resources/images/entrance 2b.png";
+points.leave.img = "resources/images/leave.png";
+points.attempt.img = "resources/images/attempt.png";
+points.puzzle.imgs = ["resources/images/puzzle.png", "resources/images/puzzle 2.png"];
+points.pickUp.imgs = ["resources/images/pick up.png", "resources/images/pick up 2.png"];
+points.ignore.imgs = ["resources/images/ignore.png", "resources/images/ignore 2.png"];
+points.pickLock.imgs = ["resources/images/pick lock 1.png", "resources/images/pick lock 2.png"];
 
 
 //choices is [choicePoint, choiceText]
@@ -313,11 +330,11 @@ points.stopSandb.choices = [{_point: points.entrance1b, text: "Entrance 1"}, {_p
 points.entrance1b.choices = [{_point: points.mouse, text: "Mouse"}, {_point: points.cricket, text: "Cricket"}];
 points.cricket.choices = [{_point: points.path1, text: "Next"}];
 
-points.entrance2b = [{_point: points.attempt, text: "Go and attempt"}, {_point: points.leave, text: "Leave"}];
+points.entrance2b.choices = [{_point: points.attempt, text: "Go and attempt"}, {_point: points.leave, text: "Leave"}];
 points.attempt.choices = [{_point: points.puzzle, text: "Puzzle"}, {_point: points.pickLock, text: "Pick the lock"}];
 points.puzzle.choices = [{_point: points.pickUp, text: "Pick up"}, {_point: points.ignore, text: "Ignore"}];
 
-var currentPoint = points.entrance1;
+var currentPoint = points.BringSean;
 var dialogue = new dialogueBox(120, "black");
 var gameState = 0;
 drawAll();
