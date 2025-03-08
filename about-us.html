@@ -1,35 +1,81 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-        <title>About the developers</title>
-        <link rel="stylesheet" href="base.css">
-    </head>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About the Developers</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
 
-    <body>
-        <nav class="navbar navbar-expand-lg navbar-dark bg-primary px-2">
-            <span class="navbar-brand mb-0 h1">Navbar</span>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-              <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
-              <ul class="navbar-nav">
-                <li class="nav-item active">
-                  <a class="nav-link" href="index.html">Home</a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link" href="#">About developers</a>
-                </li>
-              </ul>
-            </div>
-          </nav>
-        <div class="container text-center">
-            <h1 class="py-2">About the developers</h1>
-            <p>This game was developed by Sean, John, and David. It was coded by Sean, written by David, and the graphics were created by John</p>
+
+	 <style>
+	body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f4;
+}
+
+header {
+    background-color: #333;
+    color: white;
+    text-align: center;
+    padding: 20px;
+}
+
+main {
+    max-width: 1500px;
+    margin: 20px auto;
+    padding: 20px;
+    background: white;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+}
+
+h2 {
+    color: #333;
+}
+
+</style>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary px-2">
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav">
+            <li class="nav-item active">
+              <a class="nav-link" href="index.html">Home</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">About developers</a>
+            </li>
+          </ul>
         </div>
-        
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
-    </body>
+    </nav>
+    <header>
+        <h1> About Developers</h1>
+    </header>
+    <main>
+        <section id="team">
+            <h2> About Us</h2>
+            <p><strong>This game was developed by Sean, John, and David.</strong>  
+               It was coded by Sean, written by David, and the graphics were created by John.</p>
+            
+        </section>
+
+        <section id="cheat-sheet">
+            <h2>Cheat Sheet & Hints</h2>
+            <img src="resources/images/flowchart.png" style="width: 100%;">
+ 			</section>
+        <section>
+            <h2>Credits</h2>
+            <p>Fonts: <a href="https://www.fontspace.com/minecraft-ten-font-f40317">https://www.fontspace.com/minecraft-ten-font-f40317</a>, <a href="https://www.fontspace.com/minecraft-font-f28180">https://www.fontspace.com/minecraft-font-f28180</a></p>
+            <p>Background music: <a href="https://m.youtube.com/watch?v=HvtIGihCGUE&t=0s">https://m.youtube.com/watch?v=HvtIGihCGUE&t=0s</a></p>
+            <p>Click sound: <a href="https://www.youtube.com/watch?v=h6_8SlZZwvQ">https://www.youtube.com/watch?v=h6_8SlZZwvQ</a></p>
+        </section>
+    </main>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+
+</body>
 </html>

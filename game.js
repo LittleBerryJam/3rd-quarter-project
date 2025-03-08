@@ -35,10 +35,10 @@ class point{
         this.wordslength = 0;
         this.img = "";
         this.imgs = [];
-        
+        this.res = 0;
     }
     getPages(){
-        ctx.font = fontSize + "px Arial";
+        ctx.font = fontSize + "px MC";
         this.pageWords = [];
         let words = this.text.split(" ");
         let currLength = 0;
@@ -90,12 +90,15 @@ class point{
     }
     getHighlightedChoice(x, y){
         this.next = -1;
+        this.res = -1;
         let choice = Math.floor((y-dialogue.top-padding)/(fontSize+choicePadding));
         let textLeft = this.getLongestChoice();
-        if(this.scroll < this.pageWords.length - 1){
+        if(this.scroll < this.pageWords.length-1){
             textLeft = ctx.measureText("next").width;
+        }if(this.scroll == this.pageWords.length-1 && this.choices.length == 0){
+            textLeft = ctx.measureText("retry").width;
         }
-        if(x < gameCanvas.width-padding-textLeft || x > gameCanvas.width){
+        if(x < gameCanvas.width-padding-textLeft || x > gameCanvas.width || y>gameCanvas.height){
             choice = -1;
         }
         if(choice > this.choices.length-1 && this.choices.length > 0){
@@ -103,14 +106,17 @@ class point{
         }else{
             this.highligtedChoice = choice;
         }
-        if(this.scroll < this.pageWords.length - 1){
+        if(this.scroll == this.pageWords.length-1 && this.choices.length == 0 && this.highligtedChoice == 0){
+            this.highligtedChoice = -1;
+            this.res = 1;
+        }
+        if(this.scroll < this.pageWords.length - 1 || (this.scroll == this.pageWords.length-1 && this.choices.length == 0)){
             if(this.highligtedChoice == 0){
                 this.next = 1;
+                
             }
             this.highligtedChoice = -1;
         }
-        
-        
     }
     draw(){
         let tempImg = document.createElement("img");
@@ -120,7 +126,7 @@ class point{
             tempImg.src = this.img;
         }
         ctx.drawImage(tempImg, 0, 0);
-        ctx.font = fontSize + "px Arial";
+        ctx.font = fontSize + "px MC";
         ctx.fillStyle = "white";
         ctx.textAlign = "left";
         let words = this.pageWords[this.scroll].split(" ");
@@ -147,6 +153,16 @@ class point{
             
         }
         if(this.wordFrame < words.length){
+            return;
+        }
+        if(this.scroll == this.pageWords.length-1 && this.choices.length == 0){
+            ctx.textAlign = "right";
+            if(this.res == 1){
+                ctx.fillStyle = "#999999";
+            }else{
+                ctx.fillStyle = "white";
+            }
+            ctx.fillText("Retry", gameCanvas.width-padding, dialogue.top+padding+fontSize);
             return;
         }
         ctx.textAlign = "right";
@@ -182,7 +198,7 @@ class Button{
     draw(){
         ctx.fillStyle = "black";
         ctx.fillRect(this.x, this.y, this.width, this.height);
-        ctx.font = 40 + "px Arial";
+        ctx.font = 40 + "px MC";
         ctx.fillStyle = "white";
         ctx.textAlign = "center";
         ctx.fillText(this.text, this.x+this.width/2, this.y+38);
@@ -199,6 +215,7 @@ class Button{
 function drawAll(){
     if(gameState == 0){
         startScreen();
+        requestAnimationFrame(drawAll)
     }
     else if(gameState == 1){
         currentPoint.getPages();
@@ -221,7 +238,21 @@ function animateText(){
 }
 var startButton = new Button(gameCanvas.width/2-50, gameCanvas.height/2-25, 100, 50, "Play");
 function startScreen(){
+    
     ctx.drawImage(backgroundImg, 0, 0);
+    ctx.font = 80 + "px MCtitle";
+    ctx.fillStyle = "white";
+    ctx.strokeStyle = "black";
+    ctx.textAlign = "center";
+    ctx.fillText("John Cobb", gameCanvas.width/2, gameCanvas.height/4);
+    ctx.strokeText("John Cobb", gameCanvas.width/2, gameCanvas.height/4);
+    ctx.font = 40 + "px MCtitle";
+    ctx.fillText("and the Mysteries of the Temple", gameCanvas.width/2, gameCanvas.height/4+45);
+    ctx.strokeText("and the Mysteries of the Temple", gameCanvas.width/2, gameCanvas.height/4+45);
+    
+    
+    
+    
     startButton.draw();
 }
 
@@ -231,7 +262,7 @@ let points = {
     reject: new point("“I’m sorry David but I don’t think the risk is worth it. I think someone else might be better suited for this job” ☺ “Of course, I’ll contact you if there are any other sites you can possibly explore” ☺ “Thank you sir” ☺ Beep/Call Ends"),
     accept: new point("“Good, I’ll send a file with all the information we have right now. The field team will clear out two days from now, so you must be there by then. I expect a full report on your findings by next Monday. Remember that this project is highly classified, do not share this information with just anyone” ☺ Beep(or whatever sound your phone makes when a call ends)/Call Ends ☺ Preparing for his trip, John had an idea to invite his assistant, Sean, to help him with this assignment; after all, two heads were better than one. But David did say to keep the information classified, so maybe inviting Sean wouldn't be such a good idea."),
 
-    notBringSean: new point("Two days later and an hour too long road trip John found himself standing in front of the temple. ☺  ☺ As he approached the temple he noticed that there were two levers at the base of the wall of the temple. One lever had mud crusted all over it, the other one looked thinner than a typical lever. ☺ “According to the file pulling one of the levers should lead into an entrance inside the temple” - John ☺ Which one should they pick?"),
+    notBringSean: new point("Two days later and an hour too long road trip John found himself standing in front of the temple. ☺  ☺ As he approached the temple he noticed that there were two levers at the base of the wall of the temple. One lever had mud crusted all over it, the other one looked thinner than a typical lever. ☺ “According to the file pulling one of the levers should lead into an entrance inside the temple” - John ☺ Which one should he pick?"),
     
     lever1: new point("John decided to pull the first lever. ☺ ☺ ☺ A rumbling sound echoed through the jungle, suddenly the stone that John was previously standing on slid open, which dropped him onto a pile of mud. Then they started sinking, and more quicksand was flowing in. John saw a ledge he could climb up but it did not look stable, the other choice is to find a way to stop the quicksand? ☺ What should John do?"),
     lever2: new point("There was a creaking sound then a piece of slab slid open revealing an entrance. John ventured into the temple. The passageway appeared to be never ending, and getting narrower and narrower. When the way was only as wide as John's shoulders the path diverged into two."),
@@ -248,6 +279,7 @@ let points = {
     hole2: new point("After crawling through mud and door he ended up in a room with an unlocked door. ☺ ☺ John entered the room and found stacks of all sorts of treasure. He stuffed all he could find in his bag and retraced his steps until he finally made his way out with the treasure."),
     findEscape: new point("John turned around to try to find another way out but he slipped and fell into Hole 1. ☺ ☺ The impact was too much for John’s body to handle so he died."),
 
+   
     BringSean: new point("John quickly calls Sean to inform him of the details and plan the arrangements. ☺ ☺  Two days later and an hour too long road trip John and Sean found themselves standing in front of the temple. ☺ As they approached the temple they noticed that there were two levers at the base of the wall of the temple. One lever had mud crusted all over it, the other one looked thinner than a typical lever. ☺ “According to the file pulling one of the levers should lead into an entrance inside the temple” - Sean ☺ Which one should they pick?"),
 
     lever1b: new point("John and Sean decided to pull the first lever. A rumbling sound echoed through the jungle, suddenly the stone that John and Sean were previously standing on slid open, which dropped them onto a pile of mud. Then they started sinking, and more quicksand was flowing in. ☺ “Quick! We need to get out of here, it's not mud its quicksand” - Sean ☺ “Even if we find higher ground we might not find a way out, we need to block the quicksand from getting in.” - John ☺ What should John and Sean do?"),
@@ -337,12 +369,13 @@ points.puzzle.choices = [{_point: points.pickUp, text: "Pick up"}, {_point: poin
 var currentPoint = points.start;
 var dialogue = new dialogueBox(120, "black");
 var gameState = 0;
-drawAll();
+
+requestAnimationFrame(drawAll);
 
 function update(e){
     document.body.style.cursor = "default";
-    let mX = e.clientX - rect.x;
-    let mY = e.clientY - rect.y;
+    let mX = e.clientX - rect.x-50;
+    let mY = e.clientY - rect.y-50;
     if(gameState == 0){
         if(startButton.touchingMouse(mX, mY)){
             document.body.style.cursor = "pointer";
@@ -350,19 +383,19 @@ function update(e){
     }
     else if(gameState == 1){
         currentPoint.getHighlightedChoice(mX, mY)
-        if(currentPoint.highligtedChoice > -1 || currentPoint.next == 1){
+        if(currentPoint.highligtedChoice > -1 || currentPoint.next == 1 || currentPoint.res == 1){
             document.body.style.cursor = "pointer";
         }
-        drawAll();
     }
+    drawAll();
 }
 
 rect = gameCanvas.getBoundingClientRect();
-addEventListener("mousemove", update);
-addEventListener("mouseup", update);
+gameCanvas.addEventListener("mousemove", update);
+gameCanvas.addEventListener("mouseup", update);
 gameCanvas.addEventListener("click", function(e){
-    let mX = e.clientX - rect.x;
-    let mY = e.clientY - rect.y;
+    let mX = e.clientX - rect.x-50;
+    let mY = e.clientY - rect.y-50  ;
     if(gameState == 0){
         if(startButton.touchingMouse(mX, mY)){
             gameState = 1;
@@ -373,15 +406,24 @@ gameCanvas.addEventListener("click", function(e){
     }
     else if(gameState == 1){
         currentPoint.getHighlightedChoice(mX, mY);
+        if(currentPoint.res == 1){
+            currentPoint.wordFrame = 0;
+            currentPoint.scroll = 0;
+            currentPoint = points.start;
+            clickSound.play();
+        }
         if(currentPoint.scroll < currentPoint.pageWords.length - 1){
+            
             if(currentPoint.next == 1){
                 currentPoint.wordFrame = 0;
                 currentPoint.scroll += 1;
                 clickSound.play();
+
             }
         }else{
             if(currentPoint.highligtedChoice > -1){
                 currentPoint.wordFrame = 0;
+                currentPoint.scroll = 0;
                 currentPoint = currentPoint.choices[currentPoint.highligtedChoice]._point;
                 clickSound.play();
                 
