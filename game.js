@@ -334,7 +334,7 @@ points.entrance2b.choices = [{_point: points.attempt, text: "Go and attempt"}, {
 points.attempt.choices = [{_point: points.puzzle, text: "Puzzle"}, {_point: points.pickLock, text: "Pick the lock"}];
 points.puzzle.choices = [{_point: points.pickUp, text: "Pick up"}, {_point: points.ignore, text: "Ignore"}];
 
-var currentPoint = points.BringSean;
+var currentPoint = points.start;
 var dialogue = new dialogueBox(120, "black");
 var gameState = 0;
 drawAll();
