@@ -369,7 +369,6 @@ points.puzzle.choices = [{_point: points.pickUp, text: "Pick up"}, {_point: poin
 var currentPoint = points.start;
 var dialogue = new dialogueBox(120, "black");
 var gameState = 0;
-
 requestAnimationFrame(drawAll);
 
 function update(e){
@@ -399,6 +398,8 @@ gameCanvas.addEventListener("click", function(e){
     if(gameState == 0){
         if(startButton.touchingMouse(mX, mY)){
             gameState = 1;
+            backgroundSound.loop = true;
+            backgroundSound.play();
             clickSound.play();
             drawAll();
             
