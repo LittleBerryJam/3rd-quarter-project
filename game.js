@@ -6,7 +6,7 @@ let ctx = gameCanvas.getContext("2d");
 let backgroundImg = document.getElementById("background");
 
 let clickSound = new Audio("resources/sounds/click.wav");
-let backgroundSound = new Audio("resources/sounds/background.m4a");
+let backgroundSound = new Audio("resources/sounds/background.mp3");
 class dialogueBox{
     constructor(height, color){
         this.height = height;
@@ -342,22 +342,7 @@ points.pickUp.imgs = ["resources/images/pick up.png", "resources/images/pick up 
 points.ignore.imgs = ["resources/images/ignore.png", "resources/images/ignore 2.png"];
 points.pickLock.imgs = ["resources/images/pick lock 1.png", "resources/images/pick lock 2.png"];
 
-function preloadImage(url){
-    const img = new Image();
-    img.src = url;
-}
-for(var __point of Object.keys(points)){
-    _point = points.__point;
-    if(_point){
-        if(_point.img == ""){
-            for(let url = 0; url<_point.imgs.length; url++){
-                preloadImage(url);
-            }
-        }else{
-            preloadImage(_point.img);
-        }
-    }
-}
+
 
 //choices is [choicePoint, choiceText]
 points.start.choices = [{_point: points.accept, text: "Accept the offer"}, {_point: points.reject, text: "Reject the offer"}];
